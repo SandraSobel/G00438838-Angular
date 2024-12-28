@@ -11,7 +11,7 @@ import { MyDataServiceService } from '../services/my-data-service.service';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, RouterLink, IonButton, CommonModule, FormsModule,IonSearchbar],
 })
 export class HomePage {
-  newCountry:string="";
+  country:string="";
   constructor(private mds:MyDataServiceService) {}
 
 
@@ -20,6 +20,6 @@ export class HomePage {
   }
 
   async setCountry() {
-    await this.mds.set("country", this.newCountry);
+    await this.mds.set("country", this.country);
   }
 }

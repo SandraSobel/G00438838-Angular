@@ -14,7 +14,12 @@ export class MyDataServiceService {
     const storage = await this.storage.create();
    }
 
-   async set(key:string, value:any) {
+   async set(key:string, value:string) {
     await this.storage.set(key,value);
+   }
+
+   async get(key:string){ 
+    return await this.storage.get('country')
+
    }
 }
