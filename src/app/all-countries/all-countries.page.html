@@ -4,5 +4,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> content here</ion-content>
+<ion-content [fullscreen]="true">
+<ion-card *ngFor="let country of countryData">
+  <img src= "{{country.flags.png}}" />
+  <ion-card-header>
+    <ion-card-title>"{{country.name.official}}"</ion-card-title>
+    <ion-card-subtitle>"{{country.name.official}}"</ion-card-subtitle>
+  </ion-card-header>
+</ion-card>
+</ion-content>
 

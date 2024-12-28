@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard,IonCardHeader, IonCardTitle, IonCardSubtitle} from '@ionic/angular/standalone';
 import { MyDataServiceService } from '../services/my-data-service.service';
 import { HttpOptions } from '@capacitor/core';
 
@@ -11,11 +11,11 @@ import { HttpOptions } from '@capacitor/core';
   selector: 'app-all-countries',
   templateUrl: './all-countries.page.html',  
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonCard, CommonModule, FormsModule, IonCardHeader, IonCardTitle, IonCardSubtitle]
 })
 export class AllCountriesPage implements OnInit {
   countryInStorage:string = "";
-  
+  countryData:any;
 
   options: HttpOptions = {
     url: "https://restcountries.com/v3.1/all"
@@ -24,8 +24,8 @@ export class AllCountriesPage implements OnInit {
   
   constructor(private mds: MyDataServiceService) { }
 
-  ngOnInit() {
-    
+  ngOnInit() { 
+    this.countryData = [];  
   }
 
   ionViewWillEnter(){
@@ -42,7 +42,8 @@ export class AllCountriesPage implements OnInit {
   
   async getCountriesAPI() {
     let result = await this.mds.getCountriesList(this.options);
-    console.log(result);
+    this.countryData = result.data;
+    console.log(this.countryData);
   }
 
   
