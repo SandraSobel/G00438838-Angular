@@ -11,10 +11,15 @@ import { MyDataServiceService } from '../services/my-data-service.service';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, RouterLink, IonButton, CommonModule, FormsModule,IonSearchbar],
 })
 export class HomePage {
+  newCountry:string="";
   constructor(private mds:MyDataServiceService) {}
 
 
   ngOnInit(){
-    this.mds.set("country", "united");
+    
+  }
+
+  async setCountry() {
+    await this.mds.set("country", this.newCountry);
   }
 }

@@ -12,9 +12,7 @@
 
 <ion-content > 
   <br>
- <h3> Enter country:</h3> <ion-searchbar placeholder="..."></ion-searchbar>
-    
-    <ion-button [routerLink] = "['/all-countries']"> Search</ion-button>
+ <h3> Enter country:</h3> <input [(ngModel)] = "newCountry">  <ion-button (click)="setCountry()" [routerLink] = "['/all-countries']"> Search</ion-button>
 </ion-content>
   
  
