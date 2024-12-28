@@ -1,16 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Student id: G00438838 <ion-icon src="assets/icon/settings-outline.svg" ></ion-icon>
+      Student id: G00438838        
     </ion-title>
-    
+    <ion-icon  
+      src="assets/icon/settings-outline.svg" 
+      slot="end"
+      [routerLink]="'/settings'"></ion-icon>    
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-  
+<ion-content > 
 
-    <h1>settings page should be here</h1>
+    
     <ion-button [routerLink] = "['/news']"> go to news</ion-button>
 </ion-content>
   
