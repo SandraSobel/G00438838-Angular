@@ -15,7 +15,7 @@ import { HttpOptions } from '@capacitor/core';
 })
 export class AllCountriesPage implements OnInit {
   countryInStorage:string = "";
-  countryData:any;
+  countriesArray:any;
   foundCountries:any;
   
   
@@ -28,44 +28,75 @@ export class AllCountriesPage implements OnInit {
   constructor(private mds: MyDataServiceService) { }
 
   ngOnInit() { 
-    this.countryData = [];  
-    this.foundCountries = [];
+    this.countriesArray = [];   
+    this.foundCountries = [];     
   }
 
-  ionViewWillEnter(){
-    
-    this.getCountryFromStorage();
-    console.log(this.countryInStorage);    
-    this.searchCountryAPI();   
+
+  /* Once page is opened run below methods */
+  ionViewWillEnter(){    
+    // moving to search country api method for tesitng   this.getCountryFromStorage(); //get value from local storage (country input from the page)
+    console.log(this.countryInStorage);    // troubleshooting - checking if value is assigned to variable from local storage
+    // moving to search country api method for tesitng this.getAllCountriesAPI(); // get all countires
+    this.searchCountryAPI();
+    //this.searchCountryAPI();   //currently not working - should load filtered results from API
     
   }
 
+  /*get value associated with key value country from local storage and assign to variable */
   async getCountryFromStorage() {
     this.countryInStorage = await this.mds.get('country');
   } 
-   
-
-  async searchCountryAPI() {
-    await this.getAllCountriesAPI();
-    await this.getCountryFromStorage();
-     this.searchCountryByName( this.countryData, this.countryInStorage);
-    console.log(this.foundCountries);
-    console.log(this.countryInStorage);
-  }
-
+  
+  /*get all countries with all details from countries API*/
   async getAllCountriesAPI() {
     let result = await this.mds.getCountriesList(this.options);
-    this.countryData = result.data;
-   /*console.log(this.countryData);   */
+    this.countriesArray = result.data;
+    console.log(this.countriesArray);   
   }
+  
 
-  searchCountryByName(countries:any[], search: string) {  
-    if(!countries || countries.length == 0){
-      console.log("empty array")           
-    }      
-    this.foundCountries = countries.filter(country=> country.name.official.toLowerCase() || country.name.nativeName.toLowerCase().includes(search.toLowerCase()));
+  /* filter results for what was searched for - currently not working */
+  async searchCountryAPI() {   
+    await this.getCountryFromStorage();
+    await this.getAllCountriesAPI();
+    console.log("This is search country api method, printing countires array and country in storage");
+    console.log(this.countriesArray);
+    console.log(this.countryInStorage);
+    
+    for (let i=0; i<this.countriesArray.length;i++){
+      let country :string =this.countriesArray[i].name.official;
+      console.log(country);
+      country = country.toLowerCase();
+      console.log(country);
+      let search :string = this.countryInStorage;
+      console.log(search);
+      search = search.toLowerCase();
+      console.log(search);
+      if(country.includes(search)){
+        this.foundCountries.push(this.countriesArray[i]);
+      }
+    }
+    console.log("This is search country api method, printing found countries");
+    console.log(this.foundCountries);
+
+
+    
     
   }
+
+   /* searchCountryByName(countries:any[], search: string) {  
+    
+    if(!countries || countries.length == 0){
+      console.log("empty array")     /*code stops here   
+    }      
+    this.foundCountries = countries.filter(country=>
+      country.name &&
+      country.name.nativeName &&  
+      typeof country.name.nativeName === 'string' && 
+      country.name.nativeName.toLowerCase().includes(search.toLowerCase())
+    )  
+  } */
   
 
 }
