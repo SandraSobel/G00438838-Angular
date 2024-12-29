@@ -14,16 +14,13 @@ import { HttpOptions } from '@capacitor/core';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonCard, CommonModule, FormsModule, IonCardHeader, IonCardTitle, IonCardSubtitle]
 })
 export class AllCountriesPage implements OnInit {
+  
   countryInStorage:string = "";
   countriesArray:any;
   foundCountries:any;
-  
-  
-
   options: HttpOptions = {
     url: "https://restcountries.com/v3.1/all"
   }
-
   
   constructor(private mds: MyDataServiceService) { }
 
@@ -33,14 +30,9 @@ export class AllCountriesPage implements OnInit {
   }
 
 
-  /* Once page is opened run below methods */
+  /*load this method everytime page is about to be displayed */
   ionViewWillEnter(){    
-    // moving to search country api method for tesitng   this.getCountryFromStorage(); //get value from local storage (country input from the page)
-    console.log(this.countryInStorage);    // troubleshooting - checking if value is assigned to variable from local storage
-    // moving to search country api method for tesitng this.getAllCountriesAPI(); // get all countires
-    this.searchCountryAPI();
-    //this.searchCountryAPI();   //currently not working - should load filtered results from API
-    
+      this.searchCountryAPI();  
   }
 
   /*get value associated with key value country from local storage and assign to variable */
@@ -48,15 +40,8 @@ export class AllCountriesPage implements OnInit {
     this.countryInStorage = await this.mds.get('country');
   } 
   
-  /*get all countries with all details from countries API*/
-  async getAllCountriesAPI() {
-    let result = await this.mds.getCountriesList(this.options);
-    this.countriesArray = result.data;
-    console.log(this.countriesArray);   
-  }
   
-
-  /* filter results for what was searched for - currently not working */
+  /*load data from local storage and all countries first - then filter results on the page */
   async searchCountryAPI() {   
     await this.getCountryFromStorage();
     await this.getAllCountriesAPI();
@@ -78,25 +63,15 @@ export class AllCountriesPage implements OnInit {
       }
     }
     console.log("This is search country api method, printing found countries");
-    console.log(this.foundCountries);
-
-
-    
-    
+    console.log(this.foundCountries);    
   }
 
-   /* searchCountryByName(countries:any[], search: string) {  
-    
-    if(!countries || countries.length == 0){
-      console.log("empty array")     /*code stops here   
-    }      
-    this.foundCountries = countries.filter(country=>
-      country.name &&
-      country.name.nativeName &&  
-      typeof country.name.nativeName === 'string' && 
-      country.name.nativeName.toLowerCase().includes(search.toLowerCase())
-    )  
-  } */
+  /*get all countries with all details from countries API*/
+  async getAllCountriesAPI() {
+    let result = await this.mds.getCountriesList(this.options);
+    this.countriesArray = result.data;
+    console.log(this.countriesArray);   
+  }
   
-
+  
 }
