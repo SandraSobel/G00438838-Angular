@@ -15,15 +15,21 @@ export class MyDataServiceService {
     const storage = await this.storage.create();
    }
 
-   async set(key:string, value:string) {
+   async setCountry(key:string, value:string) {
     await this.storage.set(key,value);
    }
 
-   async get(key:string){ 
+   async getCountry(key:string){ 
     return await this.storage.get('country')
-
    }
 
+   async setCountryIndex(key:string, value:number) {
+    await this.storage.set(key,value);
+   }
+
+   async getCountryIndex(key:string){ 
+    return await this.storage.get('countryIndex')
+   }
 
    async getCountriesList(options: HttpOptions) {
     return await CapacitorHttp.get(options)

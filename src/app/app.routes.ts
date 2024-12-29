@@ -22,4 +22,8 @@ export const routes: Routes = [
     path: 'all-countries',
     loadComponent: () => import('./all-countries/all-countries.page').then( m => m.AllCountriesPage)
   },
+  {
+    path: 'weather',
+    loadComponent: () => import('./weather/weather.page').then( m => m.WeatherPage)
+  },
 ];
