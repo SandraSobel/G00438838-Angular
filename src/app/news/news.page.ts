@@ -5,7 +5,6 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard,IonCardHeader, Ion
 import { MyDataServiceService } from '../services/my-data-service.service';
 import { HttpOptions } from '@capacitor/core';
 
-//api key: pub_63737dcb893386948bba07842734f4473e638
 
 @Component({
   selector: 'app-news',
@@ -15,16 +14,12 @@ import { HttpOptions } from '@capacitor/core';
 })
 export class NewsPage implements OnInit {
 
-  //newsArray: any;
-  apiKey: string = "pub_63737dcb893386948bba07842734f4473e638"; 
   countrySelected: any;  
+  newsArray:any;  
   countrySelectedName:string = "";
-  options: HttpOptions = {
-    url: ""
-  }
-  newsArray:any;
-  newsArray2:any;
+  options: HttpOptions = { url: "" }  
   noNews:string ="No news found for" + this.countrySelectedName
+  apiKey: string = "pub_63737dcb893386948bba07842734f4473e638"; 
 
   constructor(private mds:MyDataServiceService) { }
 
@@ -32,8 +27,7 @@ export class NewsPage implements OnInit {
     
     this.countrySelected = []; 
     this.newsArray = [];
-    this.newsArray2 = [];
-    
+     
   }
 
   /*everytime page is about to be displayed:store index array */
@@ -79,18 +73,9 @@ export class NewsPage implements OnInit {
     console.log(result.data);
      
     this.newsArray.push(result.data.results);
-    this.newsArray = this.newsArray[0];
-    
-   /* for (let i=0; i<tempArray.lengh){
-      this.newsArray.push({
-        image: news.
-
-      })*/
-        
-      
-     
-      
-      console.log(this.newsArray);
+    this.newsArray = this.newsArray[0]; 
+    console.log("array returned from getNewsAPI method - latest news found for country selected")    
+    console.log(this.newsArray);
       
 
    // } 
