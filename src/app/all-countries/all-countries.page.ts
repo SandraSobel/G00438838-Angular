@@ -16,6 +16,7 @@ import { RouterLink } from '@angular/router';
 })
 export class AllCountriesPage implements OnInit {  
   countryInStorage:string = "";
+  countrySelected:any;
   countriesArray:any;
   foundCountries:any;
   options: HttpOptions = {
@@ -26,7 +27,8 @@ export class AllCountriesPage implements OnInit {
 
   ngOnInit() { 
     this.countriesArray = [];   
-    this.foundCountries = [];     
+    this.foundCountries = [];  
+    this.countrySelected = [];
   }
 
 
@@ -75,9 +77,11 @@ export class AllCountriesPage implements OnInit {
   }
   
   /*capture index(local storage) of selected country in array foundCountries*/
-  async getCountryIndex(index: number) {    
-    console.log(index);    
-    await this.mds.setCountryIndex("countrySelected", index);  
+  async setCountryIndex(index: number) {    
+    console.log(index);
+    this.countrySelected.length = 0;
+    this.countrySelected.push(this.foundCountries[index]);
+    await this.mds.setCountrySelected("countrySelected", this.countrySelected);  
    
   }
   

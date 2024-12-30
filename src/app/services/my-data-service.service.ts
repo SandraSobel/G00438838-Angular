@@ -23,12 +23,12 @@ export class MyDataServiceService {
     return await this.storage.get('country')
    }
 
-   async setCountryIndex(key:string, value:number) {
+   async setCountrySelected(key:string, value:any) {
     await this.storage.set(key,value);
    }
 
-   async getCountryIndex(key:string){ 
-    return await this.storage.get('countryIndex')
+   async getCountrySelected(key:string){ 
+    return await this.storage.get('countrySelected')
    }
 
    async getCountriesList(options: HttpOptions) {
