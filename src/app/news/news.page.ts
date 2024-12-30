@@ -17,7 +17,10 @@ export class NewsPage implements OnInit {
 
   //newsArray: any;
   apiKey: string = "pub_63737dcb893386948bba07842734f4473e638"; 
-  countrySelected: any;
+  countrySelected: any;  
+  options: HttpOptions = {
+    url: ""
+  }
 
   constructor(private mds:MyDataServiceService) { }
 
@@ -28,14 +31,29 @@ export class NewsPage implements OnInit {
 
   /*everytime page is about to be displayed:store index array */
   ionViewWillEnter(){    
-    this.getCountryIndexFromLocalStorage();   
+     this.getCountryFromLocalStorage();   //in setapi url method
+    this.setApiUrl();
 }
 
   /*get country from array*/
-  async getCountryIndexFromLocalStorage() {
+  async getCountryFromLocalStorage() {
     this.countrySelected = await this.mds.getCountrySelected('countrySelected');
     console.log("This is getCountryIndex method, checking if array is returned from local storage" ); 
     console.log(this.countrySelected);
+  }
+
+  /*setApiURL*/
+  async setApiUrl(){
+    await this.getCountryFromLocalStorage();
+    let urlStart:string = "https://newsdata.io/api/1/latest?"; 
+    let urlApi:string ="apikey="+ this.apiKey;
+    let urlAnd:string = "&";
+    let urlCountry:string = "country=" + this.countrySelected[0].cca2;
+    this.options = {
+      url: urlStart + urlApi + urlAnd + urlCountry
+    }
+    console.log(urlStart + urlApi + urlAnd + urlCountry)
+    console.log(this.options)
   }
 
 
