@@ -31,7 +31,7 @@ export class MyDataServiceService {
     return await this.storage.get('countrySelected')
    }
 
-   async getCountriesList(options: HttpOptions) {
+   async getApiData(options: HttpOptions) {
     return await CapacitorHttp.get(options)
    }
 }

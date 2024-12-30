@@ -71,7 +71,7 @@ export class AllCountriesPage implements OnInit {
 
   /*get all countries with all details from countries API*/
   async getAllCountriesAPI() {
-    let result = await this.mds.getCountriesList(this.options);
+    let result = await this.mds.getApiData(this.options);
     this.countriesArray = result.data;
     console.log(this.countriesArray);   
   }
