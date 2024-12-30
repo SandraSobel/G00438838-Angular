@@ -20,6 +20,7 @@ export class WeatherPage implements OnInit {
   options: HttpOptions = {url: ""};
   weatherArray:any;  
   noWeather:string ="No weather found for capital of " 
+  urlToIcon:string="";
 
   constructor(private mds:MyDataServiceService) { }
 
@@ -32,9 +33,8 @@ export class WeatherPage implements OnInit {
 //method to clean up
   /*everytime page is about to be displayed:store index array */
   ionViewWillEnter(){    
-    this.getCountryAndCapitalSelectedName();
-    //this.setApiUrl();
-    this.getWeatherAPI();
+    this.getCountryAndCapitalSelectedName();     
+    this.setWeatherUrl();
 }
 
   /*get country from array*/
@@ -61,11 +61,21 @@ export class WeatherPage implements OnInit {
     console.log(this.options)
   }
 
+  async setWeatherUrl(){
+    await this.getWeatherAPI(); 
+    let urlStart:string = "https://openweathermap.org/img/wn/"
+    let urlEnd:string ="2x.png"
+    let iconId: string = this.weatherArray.weather[0].icon;
+    this.urlToIcon = urlStart+iconId+urlEnd;
+    console.log("Url for icon generated in method setWeatherUrl: " + this.urlToIcon);
+
+  }
+
   async getCountryAndCapitalSelectedName() {
     await this.getCountryFromLocalStorage(); 
     this.countrySelectedName = this.countrySelected[0].name.official;    
     console.log(this.countrySelectedName);
-    this.capitalName = this.countrySelected[0].capitalName;
+    this.capitalName = this.countrySelected[0].capital[0];
     console.log(this.capitalName);    
   }
 
@@ -73,13 +83,18 @@ export class WeatherPage implements OnInit {
   async getWeatherAPI() {
     await this.setApiUrl();    
     let result = await this.mds.getApiData(this.options);
-    console.log(result.data);    
+    console.log(result.data); 
+    this.weatherArray.push(result.data); 
+    this.weatherArray = this.weatherArray[0]; 
+    console.log(this.weatherArray);
     
     /*this.weatherArray.push(result.data.results);
     this.weatherArray = this.weatherArray[0];
          
     console.log(this.weatherArray);     */
   }
+
+  
 
 
 }
