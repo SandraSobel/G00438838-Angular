@@ -4,26 +4,28 @@
   </ion-toolbar>
 </ion-header>
 
-<!--<ion-content *ngIf="weatherArray && weatherArray.length > 0;" [fullscreen]="true">
-  <ion-card *ngFor="let weather of weatherArray; let i=index">
+<ion-content [fullscreen]="true" *ngIf="weatherData; else noWeatherFound" >
+  <ion-card>
     <img 
-    [src]="weather.image_url"
+    src= "{{urlToIcon}}"
     style="max-width: 33%"
      />
     <ion-card-header>
       <ion-card-title>
-        {{weather.title}}   
+        {{description}}
       </ion-card-title>
       <ion-card-subtitle>
-        {{weather.description}} 
+        {{temp}} ( {{units}} )
       </ion-card-subtitle>
-    </ion-card-header>
-  
+    </ion-card-header>  
   </ion-card>
-  </ion-content>
-  <ion-content *ngIf="!weatherArray || weatherArray.length <= 0;" [fullscreen]="true">
-    <h1>{{noWeather}} {{countrySelectedName}}</h1>    
-  </ion-content>     
- -->
+</ion-content>
+
+  <ng-template #noWeatherFound>
+    <ion-content [fullscreen]="true">   
+      <h1>{{ noWeather }} {{ countrySelectedName }}</h1>
+    </ion-content>
+  </ng-template>     
+ 
   
   

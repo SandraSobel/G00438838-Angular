@@ -8,10 +8,10 @@
 
 <ion-content style="display: flex; flex-direction: column; justify-content: flex-start;">
   <br>
-  <ion-radio-group value="Metric">
-    <ion-radio value="Metric">Metric</ion-radio><br />
-    <ion-radio value="Standard">Standard</ion-radio><br />
-    <ion-radio value="Imperial">Imperial</ion-radio><br />    
+  <ion-radio-group value={{settingsValue}}>
+    <ion-radio (click)="setMetricUnit()" value="Metric">Metric</ion-radio><br />
+    <ion-radio (click)="setStandardUnit()"value="Standard">Standard</ion-radio><br />
+    <ion-radio (click)="setImperialUnit()"value="Imperial">Imperial</ion-radio><br />    
   </ion-radio-group>
   
 </ion-content>

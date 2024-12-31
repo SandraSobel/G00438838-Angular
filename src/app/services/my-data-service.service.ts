@@ -15,6 +15,14 @@ export class MyDataServiceService {
     const storage = await this.storage.create();
    }
 
+   async setUnits(key:string,value:string){
+    await this.storage.set(key,value);
+   }
+
+   async getUnits(){ 
+    return await this.storage.get('units')
+   }
+
    async setCountry(key:string, value:string) {
     await this.storage.set(key,value);
    }
