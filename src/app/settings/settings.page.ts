@@ -19,7 +19,7 @@ export class SettingsPage implements OnInit {
   ngOnInit() {    
   }
   ionViewWillEnter(){
-    this.setDefaultUnit()
+    this.setDefaultUnit();    
   }
 
   async setMetricUnit() {
@@ -39,7 +39,7 @@ export class SettingsPage implements OnInit {
 
   async setDefaultUnit(){  
     const units:string = await this.mds.getUnits()
-      if (units) {
+      if (units !== "") {
         this.settingsValue = units;
       } else {
         await this.mds.setUnits("units", "Metric");

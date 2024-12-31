@@ -33,20 +33,16 @@ export class AllCountriesPage implements OnInit {
 
 
   /*everytime page is about to be displayed: load country from storage and get countries based on user input */
-  ionViewWillEnter(){    
-      this.getCountryFromStorage();
+  ionViewWillEnter(){         
       this.searchCountryAPI();  
   }
 
-  /*get value associated with key 'country' from local storage and assign to variable */
-  async getCountryFromStorage() {
-    this.countryInStorage = await this.mds.getCountry('country');
-  } 
+ 
   
   
   /*load data from local storage and all countries first - then filter results on the page */
   async searchCountryAPI() {   
-   //await this.getCountryFromStorage(); possibly to remove
+    await this.getCountryFromStorage(); 
     await this.getAllCountriesAPI();
     console.log("This is searchCountryAPI method in allcountires, printing countires array(all) and country in storage(searched by user)");
     console.log(this.countriesArray);
@@ -68,6 +64,11 @@ export class AllCountriesPage implements OnInit {
     console.log("This is searchCountryAPI method in allcountires, printing found countries array");
     console.log(this.foundCountries);    
   }
+
+   /*get value associated with key 'country' from local storage and assign to variable */
+   async getCountryFromStorage() {
+    this.countryInStorage = await this.mds.getCountry('country');
+  } 
 
   /*get all countries with all details from countries API*/
   async getAllCountriesAPI() {
